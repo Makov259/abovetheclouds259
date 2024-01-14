@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management System</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("images/adminUserPage.png");
+      background-size: cover;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around; /* Adjust space-around for the desired spacing */
+      height: 100vh;
+    }
+
+    .section {
+      margin-right: 20px; /* Adjust the margin for the desired spacing between sections */
+    }
+
+    .section span{
+       font-size: 29px;
+       color: white;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      padding: 12px 16px;
+      display: block;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+
+/* Styles for the Log Off button */
+.logoff-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 20px; /* Adjust spacing from the corner */
+}
+
+.logoff-button {
+    padding: 10px 15px; /* Adjust padding as needed */
+    background-color: #f44336; /* Change the background color as desired */
+    color: white; /* Change text color as needed */
+    text-decoration: none;
+    border-radius: 5px; /* Optional for rounded corners */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+.logoff-button:hover {
+    background-color: #c0392b; /* Change for hover effect */
+}
+  </style>
+</head>
+
+<body>
+
+<div class="section dropdown">
+    <span>Package</span>
+    <div class="dropdown-content">
+        <a href="#">Register an incoming package</a>
+        <a href="#">Register an outgoing package</a>
+    </div>
+</div>
+
+<div class="section dropdown">
+    <span>Search</span>
+    <div class="dropdown-content">
+        <a href="#">Search package </a>
+        <a href="#">Search client</a>
+    </div>
+</div>
+
+<!-- Add one more field -->
+<!-- Log Off Button -->
+<div class="logoff-container">
+    <a href="/login" class="logoff-button">Log Off</a>
+</div>
+</body>
+
+</html>
