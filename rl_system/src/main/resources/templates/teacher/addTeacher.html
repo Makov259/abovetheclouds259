@@ -125,6 +125,15 @@
                   </select>
                 </div>
 
+                <div class="mb-3 col-md-6">
+                  <label for="classes">Subjects:</label>
+                  <select multiple class="form-control" id="classes" name="classesIds">
+                    <option th:each="class : ${classes}" th:value="${class.id}" th:text="${class.name}"></option>
+                  </select>
+                </div>
+
+
+
 
               </div>
 

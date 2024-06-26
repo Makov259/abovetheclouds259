@@ -40,7 +40,7 @@ public class User {
     private School school;
 
     @ManyToOne
-    @JoinColumn(name = "class_id")
+    @JoinColumn(name = "class_id", nullable = false)
     private Class aClass;
 
     @ManyToMany(fetch = FetchType.EAGER)

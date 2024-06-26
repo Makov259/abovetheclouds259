@@ -3,6 +3,7 @@ package com.dev.makov.rl_system.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import com.dev.makov.rl_system.entity.Class;
 public interface ClassRepository extends JpaRepository<Class, Long> {
@@ -18,6 +19,10 @@ public interface ClassRepository extends JpaRepository<Class, Long> {
     void removeStudentFromClass(Long classId, Long studentId);
 
 
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO class_teachers (class_id, teacher_id) VALUES (:classId, :teacherId)", nativeQuery = true)
+    void addTeacherToClass(@Param("classId") Long classId, @Param("teacherId") Long teacherId);
 
 
 }

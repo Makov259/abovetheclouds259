@@ -1,8 +1,10 @@
 package com.dev.makov.rl_system.controller;
 
+import com.dev.makov.rl_system.dao.ClassRepository;
 import com.dev.makov.rl_system.dao.GradeRepository;
 import com.dev.makov.rl_system.dao.SchoolSubjectRepository;
 import com.dev.makov.rl_system.entity.*;
+import com.dev.makov.rl_system.entity.Class;
 import com.dev.makov.rl_system.service.GradeService;
 import com.dev.makov.rl_system.service.SchoolService;
 import com.dev.makov.rl_system.service.UserService;
@@ -35,6 +37,9 @@ public class SchoolController {
 
     @Autowired
     private GradeRepository gradeRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
 
     @GetMapping("/admin/addSchool")
     public String showAddSchoolForm(Model model) {
@@ -125,16 +130,21 @@ public class SchoolController {
     public String showAddTeacherForm(@RequestParam("school_id") Long schoolId, Model model) {
         User teacher = new User();
         List<SchoolSubject> subjects = schoolSubjectRepository.findAll();
+        List<Class> classes = classRepository.findAll();
         model.addAttribute("teacher", teacher);
         model.addAttribute("schoolId", schoolId);
         model.addAttribute("subjects", subjects);
+        model.addAttribute("classes", classes);
         return "teacher/addTeacher";
     }
 
     @PostMapping("/school/processAddTeacher")
-    public String processAddTeacher(@ModelAttribute("teacher") User teacher, @RequestParam("schoolId") Long schoolId, @RequestParam("subjectIds") Set<Long> subjectIds, Model model) {
+    public String processAddTeacher(@ModelAttribute("teacher") User teacher, @RequestParam("schoolId") Long schoolId, @RequestParam("subjectIds") Set<Long> subjectIds,
+                                    @RequestParam("classId") Long classId, Model model) {
         School school = schoolService.findById(schoolId);
         teacher.setSchool(school);
+        Class aClass = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("class with this id not found"));
+        teacher.setaClass(aClass);
         userService.registerTeacher(teacher, subjectIds);
         return "redirect:/school/list";
     }

@@ -56,4 +56,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserRole(@Param("roleName") String roleName);
 
 
+
+
+
+
 }
