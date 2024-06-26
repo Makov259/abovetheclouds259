@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Parent</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Parent Home</h1>
+    <p>You have successfully logged in as <span th:text="${firstName}"></span> <span th:text="${lastName}"></span>!</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Grades</th>
+            <th>Absences</th> <!-- New column for absences -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
+            <td>
+                <ul>
+                    <li th:each="grade : ${student.studentGrades}">
+                        <span th:text="${grade.grade}"></span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="absence : ${student.studentAbsences}">
+                        <span th:text="${absence.date}"></span> <!-- Adjust this to display absence details -->
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+</div>
+</body>
+</html>
