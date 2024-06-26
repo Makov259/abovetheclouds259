@@ -40,8 +40,9 @@ public class User {
     private School school;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
     private Class aClass;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_school_subjects",

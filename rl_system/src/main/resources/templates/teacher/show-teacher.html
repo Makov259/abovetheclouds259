@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Details</title>
+  <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<div class="container">
+  <h1>Teacher Details</h1>
+  <table class="table">
+    <tr>
+      <th>First Name</th>
+      <td th:text="${teacher.firstName}">John</td>
+    </tr>
+    <tr>
+      <th>Last Name</th>
+      <td th:text="${teacher.lastName}">Doe</td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td th:text="${teacher.email}">john.doe@example.com</td>
+    </tr>
+    <!-- Add more fields as necessary -->
+  </table>
+  <h2>Class Details</h2>
+  <table class="table card-table table-vcenter text-nowrap datatable">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>School ID</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${theClass.name}">Class Name</td>
+      <td th:text="${theClass.grade}">Class Grade</td>
+      <td th:text="${theClass.school.id}">School ID</td>
+      <td class="text-end">
+        <a th:href="@{/class/showFormForAdd(classId=${theClass.id})}" class="btn btn-primary btn-sm mb-3">Add Student</a>
+        <a th:href="@{/class/showFormForDelete(classId=${theClass.id})}" class="btn btn-danger btn-sm mb-3">Delete Student</a>
+        <a th:href="@{/class/showStudentsInClass(classId=${theClass.id})}" class="btn btn-success btn-sm mb-3">Display Students in Class</a>
+        <a th:href="@{/class/showTeacher(classId=${theClass.id})}" class="btn btn-info btn-sm mb-3">Show Teacher</a>
+        <a th:href="@{/curriculum/showCurriculumForClass(classId=${theClass.id})}" class="btn btn-success btn-sm mb-3">View Curriculum</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/class/list" class="btn btn-primary">Back to Class List</a>
+</div>
+</body>
+</html>

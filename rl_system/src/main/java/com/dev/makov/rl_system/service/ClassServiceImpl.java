@@ -78,5 +78,10 @@ public class ClassServiceImpl implements ClassService {
         classRepository.save(theClass);
     }
 
+    @Override
+    public Class findClassByTeacherId(Long teacherId) {
+        return classRepository.findByTeacherId(teacherId).orElseThrow(() -> new RuntimeException("No class found for this teacher"));
+    }
+
 
 }

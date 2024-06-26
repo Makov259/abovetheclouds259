@@ -152,18 +152,11 @@
                     <td th:text="${tempClass.grade}"></td>
                     <td th:text="${tempClass.school.id}"></td>
                     <td class="text-end">
-                      <a th:href="@{/class/showFormForAdd(classId=${tempClass.id})}" class="btn btn-primary btn-sm mb-3">
-                        Add Student
-                      </a>
-                      <a th:href="@{/class/showFormForDelete(classId=${tempClass.id})}" class="btn btn-danger btn-sm mb-3">
-                        Delete Student
-                      </a>
-                      <a th:href="@{/class/showStudentsInClass(classId=${tempClass.id})}" class="btn btn-success btn-sm mb-3">
-                        Display Students in Class
-                      </a>
-                      <a th:href="@{/curriculum/showCurriculumForClass(classId=${tempClass.id})}" class="btn btn-success btn-sm mb-3">
-                        View Curriculum
-                      </a>
+                      <a th:href="@{/class/showFormForAdd(classId=${tempClass.id})}" class="btn btn-primary btn-sm mb-3">Add Student</a>
+                      <a th:href="@{/class/showFormForDelete(classId=${tempClass.id})}" class="btn btn-danger btn-sm mb-3">Delete Student</a>
+                      <a th:href="@{/class/showStudentsInClass(classId=${tempClass.id})}" class="btn btn-success btn-sm mb-3">Display Students in Class</a>
+                      <a th:href="@{/class/showTeacher(classId=${tempClass.id})}" class="btn btn-info btn-sm mb-3">Show Teacher</a>
+                      <a th:href="@{/curriculum/showCurriculumForClass(classId=${tempClass.id})}" class="btn btn-success btn-sm mb-3">View Curriculum</a>
                     </td>
                   </tr>
                   </tbody>

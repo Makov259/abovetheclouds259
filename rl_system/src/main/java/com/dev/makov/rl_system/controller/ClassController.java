@@ -50,6 +50,20 @@ public class ClassController {
         return "student/addStudentToClass";
     }
 
+    @GetMapping("/showTeacher")
+    public String showTeacher(@RequestParam("classId") Long classId, Model model) {
+        Class theClass = classService.findById(classId);
+        User teacher = theClass.getTeacher();
+
+        if (teacher == null) {
+            throw new RuntimeException("No teacher assigned to this class");
+        }
+
+        model.addAttribute("theClass", theClass);
+        model.addAttribute("teacher", teacher);
+        return "teacher/show-teacher";
+    }
+
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute("student") User student, @RequestParam("classId") Long classId, Model model) {

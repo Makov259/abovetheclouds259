@@ -21,6 +21,11 @@ public class Class {
     @OneToMany(mappedBy = "aClass", cascade = CascadeType.ALL)
     private List<User> users;
 
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private User teacher;
+
+
     // Existing methods...
 
     public void updateUser(User updatedUser) {
@@ -74,5 +79,13 @@ public class Class {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 }

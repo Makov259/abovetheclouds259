@@ -20,4 +20,5 @@ public interface ClassService {
     void updateStudentInClass(Long classId, User student);
 
 
+    Class findClassByTeacherId(Long teacherId);
 }

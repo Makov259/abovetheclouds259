@@ -153,12 +153,21 @@ public class UserService {
         Set<SchoolSubject> subjects = new HashSet<>(schoolSubjectRepository.findAllById(subjectIds));
         teacher.setSchoolSubjects(subjects);
 
-        // Set the class relationship
+        // Save the teacher
         userRepository.save(teacher);
 
         // Add teacher to the class
-        classRepository.addTeacherToClass(teacher.getaClass().getId(), teacher.getId());
+        if (teacher.getaClass() != null) {
+            Class theClass = teacher.getaClass();
+            theClass.setTeacher(teacher);
+            classRepository.save(theClass);
+
+            // Add teacher to the class_teachers table
+            classRepository.addTeacherToClass(teacher.getaClass().getId(), teacher.getId());
+            classRepository.addTeacherToClass2(teacher.getaClass().getId(),teacher.getId());
+        }
     }
+
 
 
     public void updateTeacher(User teacher, Set<Long> subjectIds) {

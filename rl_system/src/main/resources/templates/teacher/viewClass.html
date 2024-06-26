@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Details</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Class Details</h1>
+    <table class="table card-table table-vcenter text-nowrap datatable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>School ID</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${class.name}"></td>
+            <td th:text="${class.grade}"></td>
+            <td th:text="${class.school.id}"></td>
+            <td class="text-end">
+                <a th:href="@{/class/showStudentsInClass(classId=${class.id})}" class="btn btn-success btn-sm mb-3">Display Students in Class</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/teacher/home" class="btn btn-primary">Back to Dashboard</a>
+</div>
+</div>
+</body>
+</html>

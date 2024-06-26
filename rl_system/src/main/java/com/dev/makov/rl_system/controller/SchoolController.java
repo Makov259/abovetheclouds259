@@ -5,6 +5,7 @@ import com.dev.makov.rl_system.dao.GradeRepository;
 import com.dev.makov.rl_system.dao.SchoolSubjectRepository;
 import com.dev.makov.rl_system.entity.*;
 import com.dev.makov.rl_system.entity.Class;
+import com.dev.makov.rl_system.service.AbsenceService;
 import com.dev.makov.rl_system.service.GradeService;
 import com.dev.makov.rl_system.service.SchoolService;
 import com.dev.makov.rl_system.service.UserService;
@@ -31,6 +32,9 @@ public class SchoolController {
 
     @Autowired
     private GradeService gradeService;
+
+    @Autowired
+    private AbsenceService absenceService;
 
     @Autowired
     private SchoolSubjectRepository schoolSubjectRepository;
@@ -139,15 +143,19 @@ public class SchoolController {
     }
 
     @PostMapping("/school/processAddTeacher")
-    public String processAddTeacher(@ModelAttribute("teacher") User teacher, @RequestParam("schoolId") Long schoolId, @RequestParam("subjectIds") Set<Long> subjectIds,
-                                    @RequestParam("classId") Long classId, Model model) {
+    public String processAddTeacher(@ModelAttribute("teacher") User teacher,
+                                    @RequestParam("schoolId") Long schoolId,
+                                    @RequestParam("subjectIds") Set<Long> subjectIds,
+                                    @RequestParam("classId") Long classId,
+                                    Model model) {
         School school = schoolService.findById(schoolId);
         teacher.setSchool(school);
-        Class aClass = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("class with this id not found"));
+        Class aClass = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Class not found"));
         teacher.setaClass(aClass);
         userService.registerTeacher(teacher, subjectIds);
         return "redirect:/school/list";
     }
+
 
     @GetMapping("/school/updateTeacher")
     public String showUpdateTeacherForm(@RequestParam("school_id") Long schoolId, Model model) {
@@ -351,7 +359,35 @@ public class SchoolController {
         return "grade/displayGrades";
     }
 
+    @GetMapping("/school/addAbsence")
+    public String showAddAbsenceForm(@RequestParam("student_id") Long studentId, Model model) {
+        Absence absence = new Absence();
+        model.addAttribute("absence", absence);
+        model.addAttribute("studentId", studentId);
+        return "absences/addAbsences";
+    }
 
+    @PostMapping("/school/processAddAbsence")
+    public String processAddAbsence(@ModelAttribute("absence") Absence absence, @RequestParam("studentId") Long studentId) {
+        User student = userService.findById(studentId);
+        if (student == null) {
+            throw new IllegalArgumentException("Invalid student ID: " + studentId);
+        }
+        absence.setStudent(student);
+        absence.setaClass(student.getaClass()); // Assuming student has a class associated
+        absenceService.saveAbsence(absence);
+        return "redirect:/school/students?school_id=" + student.getSchool().getId();
+    }
+
+
+    // Display student's absences
+    @GetMapping("/school/displayAbsences")
+    public String displayAbsences(@RequestParam("student_id") Long studentId, Model model) {
+        List<Absence> absences = absenceService.findByStudentId(studentId);
+        model.addAttribute("absences", absences);
+        model.addAttribute("studentId", studentId);
+        return "absence/displayAbsences";
+    }
 
 
 }
